@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+    <div class="container-80">
+        <div class="all-logout ">
+            <h1><%= article.title %></h1>
+           <a class="logout" href="/users/logout"><button>logout</button></a>
+        </div>
+        
+        <h3 class="margin"><%= article.author%></h3>
+        <% article.tags.forEach(t => { %>
+            <span><%= t %></span>
+       <% }) %>
+       <p class="margin"><%= article.description %></p>
+       <h3><%= article.likes ? article.likes : 0 %></h3>
+       <a href="/articles/<%= article.id %>/likes">
+        <button>Like</button>
+       </a>
+       <a href="/articles/<%= article.id %>/edit">
+        <button class="margin">Edit</button>
+       </a>
+       <a href="/articles/<%= article.id %>/delete">
+        <button>Delete</button>
+       </a>
+       
+        <form action="/articles/<%= article._id %>/comments" method="POST">
+            <div class="detail_form flex">
+            <textarea name="text" rows="2" placeholder="Add Comment"></textarea>
+            <input type="text" name="author", placeholder="Author">
+            <input type="submit" value="Add Comment">
+        </div>
+        </form>
+       
+       <div>
+        <h2 class="margin">Comments</h2>
+        <hr>
+        <% article.comments.forEach(comment => { %>
+            <div class="margin">
+                <p><%= comment.text %></p>
+                <p class="margin"> By: <%= comment.author %></p>
+                <a  href="/comments/<%= comment._id %>/edit">
+                    <button class="margin">Edit</button>
+                </a>
+                <a href="/comments/<%= comment._id %>/delete">
+                    <button>Delete</button>
+            </a>
+            </div>
+       <% }) %>
+       </div>
+    </div>
+</body>
+</html>
