@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>All Articles</h1>
+    <a class="logout" href="/users/logout"><button>logout</button></a>
+    <% if(articles.length) { %>
+        <% articles.forEach(a => { %>
+            <section>
+                <div>
+                    <a href="/articles/<%= a.id %>">
+                        <h2><%= a.title %></h2>
+                    </a>
+                </div>
+            </section>
+       <% }) %>
+       <% } else { %>
+        <h2>No Articles Present</h2>
+        <% } %>
+        <a href="/articles/new" ><button>Create Articles</button></a>
+</body>
+</html>

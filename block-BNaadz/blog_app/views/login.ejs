@@ -1,0 +1,25 @@
+<link rel="stylesheet" href="/stylesheets/style.css">
+<div class="login-form-bd">
+    <div class="form-wrapper">
+      <div class="form-container">
+        <h1> Please Login</h1>
+        <% if(error) { %>
+        
+          <p><%= error %></p> 
+          <% } %>
+        <form action="/users/login" method="POST">
+          <div class="form-control">
+            <input type="text" name="email" placeholder="Email" >
+            
+          </div>
+  
+          <div class="form-control">
+            <input type="password" name="password" placeholder="Password" >
+            
+          </div>
+          <button class="login-btn">Login</button>
+          <p class="text">Don't have an account? <a href="/users/register"> Register</a></p>
+        </form>
+      </div>
+    </div>
+  </div>

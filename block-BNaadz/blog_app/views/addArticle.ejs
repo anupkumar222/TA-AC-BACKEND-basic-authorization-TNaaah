@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+    <div>
+        <a class="logout" href="/users/logout"><button>logout</button></a>
+        <form action="/articles" method="POST">
+                <h2>Add Article</h2>
+            <div class="block-article">
+                <input type="text" name="title" placeholder="Add Title">
+                <textarea name="description" rows="4" placeholder="Add Description"></textarea>
+                <input type="text" name="tags" placeholder="Tags">
+                <input type="text" name="author" placeholder="Author">
+            </div>
+            
+            <div>
+                <button type="submit">Add Article</button>
+                
+            </div>
+        </form>
+    </div>
+</body>
+</html>
