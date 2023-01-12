@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+    <div class="container-80">
+        <div class="flex edit_cmnt">
+            <h2>Edit Comment</h2>
+            <a class="logout" href="/users/logout"><button>logout</button></a>
+        </div>
+        <form action="/comments/<%= comment.id %>" method="POST">
+
+           
+            <div class="margin">
+                <textarea  name="text" rows="4" placeholder="Add Author"><%= comment.text %></textarea>
+                <div>
+                    <button type="submit">Update comment</button>
+                </div>
+            </div>
+          
+        </form>
+</div>
+
+</body>
+</html>

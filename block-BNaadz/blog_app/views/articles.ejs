@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+    <div class="container-80">
+        <div class="flex article">
+            <h1>All Articles</h1>
+            
+        <a class="logout" href="/users/logout"><button>logout</button></a>
+        </div>
+        
+        <% if(articles.length) { %>
+            <% articles.forEach(a => { %>
+                <section class="title" >
+                    <div class="item-center flex">
+                        <a href="/articles/<%= a.id %>">
+                            <h2><%= a.title %></h2>
+                        </a>
+                    </div>
+                </section>
+           <% }) %>
+           <% } else { %>
+            <h2>No Articles Present</h2>
+            <% } %>
+            <div >
+                <a href="/articles/new" ><button class="item-center flex">Create Articles</button></a>
+
+            </div>
+    </div>
+   
+</body>
+</html>
