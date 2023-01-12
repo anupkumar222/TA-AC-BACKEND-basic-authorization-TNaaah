@@ -7,6 +7,8 @@ var mongoose = require('mongoose');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 var flash = require('connect-flash');
+var auth = require('./middlewares/auth');
+
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -39,6 +41,8 @@ app.use(session({
 }))
 
 app.use(flash());
+app.use(auth.userInfo);
+
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

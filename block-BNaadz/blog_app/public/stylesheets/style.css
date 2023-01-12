@@ -357,3 +357,34 @@ text-decoration: none;
   flex-direction: column;
   width: 40%;
 }
+
+.item-center {
+  margin: 1rem 0;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+ /* background-color: greenyellow; */
+ text-decoration: none;
+}
+
+.title {
+  background-color: #c2c25a;
+  width: 20%;
+}
+.title a {
+  text-decoration: none;
+  color: rgb(161, 41, 41);
+}
+
+.like {
+  display: flex;
+}
+
+.margin-left {
+  margin-left: 2.5rem;
+  color: maroon;
+}
+
+.like-margin {
+  margin-left: 1rem;
+  color: maroon;
+}

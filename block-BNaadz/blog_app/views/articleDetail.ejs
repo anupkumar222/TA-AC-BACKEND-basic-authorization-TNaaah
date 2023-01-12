@@ -9,19 +9,31 @@
 </head>
 <body>
     <div class="container-80">
+        <% if(error) { %>
+        
+            <p><%= error %></p> 
+            <% } %>
         <div class="all-logout ">
             <h1><%= article.title %></h1>
+
            <a class="logout" href="/users/logout"><button>logout</button></a>
         </div>
         
-        <h3 class="margin"><%= article.author%></h3>
+        <h3 class="margin">Creadted by: <%= article.author.first_name + " " + article.author.last_name%></h3>
         <% article.tags.forEach(t => { %>
             <span><%= t %></span>
        <% }) %>
        <p class="margin"><%= article.description %></p>
-       <h3><%= article.likes ? article.likes : 0 %></h3>
+       <div class="like">
+        <h3 class="like-margin"><%= article.likes ? article.likes : 0 %></h3>
+       <h3 class="margin-left"><%= article.dislikes ? article.dislikes : 0 %></h3>
+       </div>
+       
        <a href="/articles/<%= article.id %>/likes">
         <button>Like</button>
+       </a>
+       <a href="/articles/<%= article.id %>/dislikes">
+        <button>Dislike</button>
        </a>
        <a href="/articles/<%= article.id %>/edit">
         <button class="margin">Edit</button>

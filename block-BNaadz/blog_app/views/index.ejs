@@ -1,7 +1,17 @@
 <link rel="stylesheet" href="/stylesheets/style.css">
 <h4>Authentication Demo App</h4>
 <div class="main-page">
-    <a href="/users" ><button>LOGIN</button></a>
+  <%  if(user) { %>
+        <h3><%= user.email %></h3>
+        <a class="logout" href="/users/logout"><button>logout</button></a>
+
+   <% } else { %>
+        <a  href="/articles"><button>View Articles</button></a>
+
+        <a href="/users" ><button>LOGIN</button></a>
+       
+       <a href="/users/register"><button>REGISTER</button></a>
+  <%  } %>
+
    
-   <a href="/users/register"><button>REGISTER</button></a>
 </div>

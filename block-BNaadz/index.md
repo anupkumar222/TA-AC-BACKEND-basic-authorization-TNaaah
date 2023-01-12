@@ -18,7 +18,7 @@ Add following authorization for above application:
 2. For Logged User
 
 - should be able to create article
-- add likes/deslike to articles listed
+- add likes/dislike to articles listed
 - add comment on any article
 - like/dislike any comment on articles
 
