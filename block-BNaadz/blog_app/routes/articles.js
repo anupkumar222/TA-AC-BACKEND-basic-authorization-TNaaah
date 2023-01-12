@@ -3,7 +3,8 @@ var router = express.Router();
 
 var Article = require('../models/Article');
 var Comment = require('../models/Comments');
-
+var ownerShip = require('../utils/ownerShip');
+var auth = require('../middlewares/auth');
 
 //list articles
 router.get('/', (req, res, next) => {
@@ -14,7 +15,7 @@ router.get('/', (req, res, next) => {
 });
 
 //create article form
-router.get('/new', (req, res) => {
+router.get('/new', auth.loggedInUser, (req, res) => {
     res.render('addArticle');
 })
 
@@ -28,16 +29,18 @@ router.get('/:id', (req, res, next) => {
     Article
     .findById(id)
     .populate('comments')
+    .populate('author')
     .exec((err, article) => {
         if(err) return next(err);
         // console.log(article)
-        res.render('articleDetail', { article });
+        res.render('articleDetail', { article,  error : req.flash("error")[0]});
     })
 });
 
 //create article
-router.post('/', (req, res, next) => {
+router.post('/', auth.loggedInUser, (req, res, next) => {
     req.body.tags = req.body.tags.trim().split(" ");
+    req.body.author = req.user.id;
     Article.create(req.body, (err, createdArticle) => {
         if(err) return next(err);
         res.redirect('/articles');
@@ -50,7 +53,14 @@ router.get('/:id/edit', (req, res, next) => {
     Article.findById(id, (err, article) => {
         article.tags = article.tags.join(" ")
         if(err) return next(err);
-        res.render('editArticleForm', { article });
+        // res.render('editArticleForm', { article });
+
+        if(ownerShip.isSameUser(req, article.author)){
+            res.render('editArticleForm', { article });
+          }else{
+            req.flash('error', 'Unauthorised request');
+             res.redirect('/articles/'+ id);
+          }
     });
 });
 
@@ -60,12 +70,18 @@ router.post('/:id', (req, res) => {
     req.body.tags = req.body.tags.split(" ")
     Article.findByIdAndUpdate(id, req.body, (err, updatedData) => {
         if(err) return next(err);
-        res.redirect('/articles/' + id);
+        
+        if(ownerShip.isSameUser(req, updatedData.author)){
+            res.render('editArticleForm', { article: updatedData });
+          }else{
+            req.flash('error', 'Unauthorised request');
+             res.redirect('/articles/'+ id);
+          }
     })
 })
 
 //delete article
-router.get('/:id/delete', (req, res, next) => {
+router.get('/:id/delete', auth.loggedInUser, (req, res, next) => {
     var id = req.params.id;
     Article.findByIdAndDelete(id, (err, article) => {
         if(err) return next(err);
@@ -78,7 +94,7 @@ router.get('/:id/delete', (req, res, next) => {
 });
 
 //increment likes
-router.get('/:id/likes', (req, res, next) => {
+router.get('/:id/likes', auth.loggedInUser, (req, res, next) => {
     var id = req.params.id;
     Article.findByIdAndUpdate(id, { $inc : {likes: 1}}, (err, article) => {
         if(err) return next(err);
@@ -86,8 +102,17 @@ router.get('/:id/likes', (req, res, next) => {
     })
 })
 
+//decrement likes
+router.get('/:id/dislikes', auth.loggedInUser, (req, res, next) => {
+    var id = req.params.id;
+    Article.findByIdAndUpdate(id, { $inc : {dislikes: 1}}, (err, article) => {
+        if(err) return next(err);
+        res.redirect('/articles/' + id);
+    })
+})
+
 //Add comment
-router.post('/:articleId/comments', (req, res, next) => {
+router.post('/:articleId/comments', auth.loggedInUser, (req, res, next) => {
     var articleId = req.params.articleId;
     console.log(req.body);
     req.body.articleId = articleId;
